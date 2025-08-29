@@ -21,7 +21,7 @@ import time
 # Page configuration
 st.set_page_config(
     page_title="Futures Portfolio Monitor | Shi Ventures",
-    page_icon="⚡",
+    page_icon="📈",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -201,7 +201,7 @@ st.markdown("""
     
     .stApp {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        background: #ffffff;
         color: #111827;
     }
     
@@ -234,7 +234,7 @@ st.markdown("""
     
     /* Professional buttons */
     .trading-button {
-        background: linear-gradient(135deg, #2c5aa0 0%, #1e40af 100%);
+        background: #2c5aa0;
         color: #ffffff;
         border: none;
         border-radius: 8px;
@@ -254,7 +254,7 @@ st.markdown("""
     
     /* Position cards */
     .position-card {
-        background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(44, 90, 160, 0.05) 100%);
+        background: rgba(44, 90, 160, 0.08);
         border-left: 4px solid #2c5aa0;
         border-radius: 12px;
         padding: 20px;
@@ -268,7 +268,7 @@ st.markdown("""
     }
     
     .position-short {
-        background: linear-gradient(135deg, rgba(255, 68, 68, 0.1) 0%, rgba(255, 68, 68, 0.05) 100%);
+        background: rgba(239, 68, 68, 0.08);
         border-left-color: #ff4444;
     }
     
@@ -300,7 +300,7 @@ st.markdown("""
     
     /* Risk level indicators */
     .risk-critical {
-        background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+        background: #ef4444;
         color: white;
         padding: 8px 16px;
         border-radius: 20px;
@@ -310,7 +310,7 @@ st.markdown("""
     }
     
     .risk-high {
-        background: linear-gradient(135deg, #ffa726 0%, #ff8f00 100%);
+        background: #f59e0b;
         color: white;
         padding: 8px 16px;
         border-radius: 20px;
@@ -319,7 +319,7 @@ st.markdown("""
     }
     
     .risk-low {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: #10b981;
         color: #ffffff;
         padding: 8px 16px;
         border-radius: 20px;
@@ -446,10 +446,10 @@ def render_header():
     st.markdown("""
     <div style="text-align: center; margin-bottom: 40px;">
         <h1 style="font-size: 3.5rem; font-weight: 900; 
-                   background: linear-gradient(135deg, #00ff88 0%, #4fc3f7 100%); 
+                   background: #10b981; 
                    -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
                    margin-bottom: 10px; text-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            ⚡ Futures Portfolio Monitor
+            Futures Portfolio Monitor
         </h1>
         <p style="font-size: 1.3rem; opacity: 0.8; margin-bottom: 5px;">
             Professional Trading Dashboard • 
@@ -471,7 +471,7 @@ def render_header():
     
     with col1:
         new_account_type = st.selectbox(
-            "📊 Account Configuration",
+            "Account Configuration",
             ["50K_COMBINE", "150K_COMBINE"],
             index=0 if st.session_state.account_type == "50K_COMBINE" else 1,
             key="account_selector"
@@ -494,7 +494,7 @@ def render_header():
     
     with col3:
         current_time = datetime.now().strftime("%H:%M:%S EST")
-        market_status = "🟢 OPEN" if 9 <= datetime.now().hour < 16 else "🔴 CLOSED"
+        market_status = " OPEN" if 9 <= datetime.now().hour < 16 else " CLOSED"
         
         st.markdown(f"""
         <div class="metric-card" style="margin: 0; text-align: center;">
@@ -600,7 +600,7 @@ def render_live_metrics():
 def render_strategy_section():
     """Strategy selection and override interface"""
     
-    st.markdown("### 🎯 Strategy Management")
+    st.markdown("### Strategy Management")
     
     dashboard = TopStepDashboard()
     
@@ -612,10 +612,10 @@ def render_strategy_section():
     with col1:
         # Current strategy display
         st.markdown(f"""
-        <div style="background: linear-gradient(135deg, {current_strategy['color']}20 0%, {current_strategy['color']}10 100%);
+        <div style="background: {current_strategy['color']}15;
                     border-left: 4px solid {current_strategy['color']}; border-radius: 12px; padding: 25px; margin-bottom: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h4 style="color: {current_strategy['color']}; margin: 0;">🤖 Active Strategy</h4>
+                <h4 style="color: {current_strategy['color']}; margin: 0;"> Active Strategy</h4>
                 <div style="background: {current_strategy['color']}; color: #0f1419; padding: 4px 12px; 
                             border-radius: 20px; font-size: 12px; font-weight: 600;">
                     {current_strategy['risk_level']} Risk
@@ -638,7 +638,7 @@ def render_strategy_section():
     with col2:
         # Strategy override toggle
         override_enabled = st.checkbox(
-            "🔧 Manual Override", 
+            "Manual Override", 
             value=st.session_state.strategy_override,
             help="Override AI strategy with manual control"
         )
@@ -647,18 +647,18 @@ def render_strategy_section():
             st.session_state.strategy_override = override_enabled
             if override_enabled:
                 st.session_state.current_strategy = "MANUAL_OVERRIDE"
-                dashboard.add_alert("🔧 Manual override activated", "warning")
+                dashboard.add_alert("Manual override activated", "warning")
             else:
                 st.session_state.current_strategy = "AI_AUTONOMOUS"
-                dashboard.add_alert("🤖 Returned to AI autonomous trading", "success")
+                dashboard.add_alert(" Returned to AI autonomous trading", "success")
             st.rerun()
         
         # Quick return to AI button
         if st.session_state.strategy_override:
-            if st.button("🤖 Return to AI Trading", type="secondary", key="return_to_ai"):
+            if st.button(" Return to AI Trading", type="secondary", key="return_to_ai"):
                 st.session_state.strategy_override = False
                 st.session_state.current_strategy = "AI_AUTONOMOUS"
-                dashboard.add_alert("🤖 Returned to AI autonomous trading", "success")
+                dashboard.add_alert(" Returned to AI autonomous trading", "success")
                 st.rerun()
     
     st.markdown("---")
@@ -684,7 +684,7 @@ def render_strategy_section():
                             border-radius: 8px; padding: 15px; margin: 10px 0; cursor: pointer;
                             transition: all 0.3s ease;">
                     <div style="color: {strategy['color']}; font-weight: 700; font-size: 16px; margin-bottom: 8px;">
-                        {strategy['name']} {'✅' if is_active else ''}
+                        {strategy['name']} {'[ACTIVE]' if is_active else ''}
                     </div>
                     <div style="font-size: 13px; opacity: 0.8; margin-bottom: 10px;">
                         {strategy['description']}
@@ -703,23 +703,23 @@ def render_strategy_section():
                     st.session_state.current_strategy = strategy_key
                     if strategy_key == "MANUAL_OVERRIDE":
                         st.session_state.strategy_override = True
-                        dashboard.add_alert(f"🔧 Switched to {strategy['name']}", "warning")
+                        dashboard.add_alert(f"Switched to {strategy['name']}", "warning")
                     else:
                         st.session_state.strategy_override = False
-                        dashboard.add_alert(f"🎯 Switched to {strategy['name']}", "info")
+                        dashboard.add_alert(f"Strategy changed to {strategy['name']}", "info")
                     st.rerun()
     
     # Manual signals interface (only show if manual override is active)
     if st.session_state.strategy_override:
         st.markdown("---")
-        st.markdown("### 📡 Manual Trading Signals")
+        st.markdown("###  Manual Trading Signals")
         
         col1, col2, col3 = st.columns(3)
         
         with col1:
             st.markdown("""
             <div style="background: rgba(0, 255, 136, 0.1); border-radius: 8px; padding: 15px;">
-                <div style="color: #00ff88; font-weight: 600; margin-bottom: 8px;">🟢 BULLISH SIGNALS</div>
+                <div style="color: #00ff88; font-weight: 600; margin-bottom: 8px;"> BULLISH SIGNALS</div>
                 <div style="font-size: 13px; line-height: 1.5;">
                     • Volume breakout detected<br>
                     • RSI oversold recovery<br>
@@ -732,7 +732,7 @@ def render_strategy_section():
         with col2:
             st.markdown("""
             <div style="background: rgba(255, 68, 68, 0.1); border-radius: 8px; padding: 15px;">
-                <div style="color: #ff4444; font-weight: 600; margin-bottom: 8px;">🔴 BEARISH SIGNALS</div>
+                <div style="color: #ff4444; font-weight: 600; margin-bottom: 8px;"> BEARISH SIGNALS</div>
                 <div style="font-size: 13px; line-height: 1.5;">
                     • Resistance level rejection<br>
                     • RSI overbought condition<br>
@@ -770,7 +770,7 @@ def render_strategy_section():
         
         with signal_col4:
             st.write("")
-            if st.button("📡 Add Signal", key="add_manual_signal"):
+            if st.button(" Add Signal", key="add_manual_signal"):
                 new_signal = {
                     "instrument": signal_instrument,
                     "direction": signal_direction,
@@ -779,7 +779,7 @@ def render_strategy_section():
                     "time_str": datetime.now().strftime("%H:%M:%S")
                 }
                 st.session_state.manual_signals.append(new_signal)
-                dashboard.add_alert(f"📡 Manual {signal_direction} signal added for {signal_instrument}", "info")
+                dashboard.add_alert(f" Manual {signal_direction} signal added for {signal_instrument}", "info")
                 st.rerun()
         
         # Display recent manual signals
@@ -813,7 +813,7 @@ def render_strategy_section():
 def render_trading_interface():
     """Trading interface with position management"""
     
-    st.markdown("### ⚡ Trading Interface")
+    st.markdown("### Trading Interface")
     
     dashboard = TopStepDashboard()
     config = dashboard.get_account_config()
@@ -840,7 +840,7 @@ def render_trading_interface():
         with col5:
             st.write("")
             st.write("")
-            if st.button("🚀 Execute Demo Trade", type="primary", key="execute_trade"):
+            if st.button(" Execute Demo Trade", type="primary", key="execute_trade"):
                 # Add position
                 new_position = {
                     "id": f"POS_{len(st.session_state.positions) + 1}",
