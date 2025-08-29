@@ -36,17 +36,30 @@ TOPSTEP_CONFIGS = {
         "max_position_size": 5,
         "max_overnight_positions": 3,
         "consistency_requirement": 0.5,
-        "evaluation_days": 30
+        "evaluation_days": 30,
+        "monthly_fee": 49.0
+    },
+    "100K_COMBINE": {
+        "account_size": 100000.0,
+        "profit_target": 6000.0,
+        "daily_loss_limit": 3000.0,
+        "max_total_loss": 4000.0,
+        "max_position_size": 10,
+        "max_overnight_positions": 5,
+        "consistency_requirement": 0.5,
+        "evaluation_days": 30,
+        "monthly_fee": 99.0
     },
     "150K_COMBINE": {
         "account_size": 150000.0,
         "profit_target": 9000.0,
-        "daily_loss_limit": 6000.0,
-        "max_total_loss": 7500.0,
-        "max_position_size": 10,
-        "max_overnight_positions": 5,
+        "daily_loss_limit": 4500.0,
+        "max_total_loss": 6000.0,
+        "max_position_size": 15,
+        "max_overnight_positions": 7,
         "consistency_requirement": 0.5,
-        "evaluation_days": 30
+        "evaluation_days": 30,
+        "monthly_fee": 149.0
     }
 }
 
@@ -215,61 +228,76 @@ st.markdown("""
     div[data-testid="stDecoration"] {visibility: hidden;}
     div[data-testid="stStatusWidget"] {visibility: hidden;}
     
-    /* Enhanced metric cards */
+    /* Schwab-style data cards */
     .metric-card {
-        background: rgba(44, 90, 160, 0.08);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(44, 90, 160, 0.15);
-        border-radius: 12px;
-        padding: 25px;
-        margin: 15px 0;
-        transition: all 0.3s ease;
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        padding: 20px;
+        margin: 10px 0;
     }
     
     .metric-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(44, 90, 160, 0.2);
-        border-color: rgba(44, 90, 160, 0.3);
+        border-color: #2c5aa0;
     }
     
-    /* Professional buttons */
+    /* Schwab-style buttons */
     .trading-button {
         background: #2c5aa0;
         color: #ffffff;
         border: none;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-weight: 600;
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-weight: 500;
         font-size: 14px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
     }
     
     .trading-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(44, 90, 160, 0.4);
+        background: #1e40af;
     }
     
-    /* Position cards */
+    /* Schwab-style data tables */
+    .data-table {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+    
+    .table-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 12px 16px;
+        font-weight: 600;
+        color: #111827;
+    }
+    
+    .table-row {
+        border-bottom: 1px solid #f1f1f1;
+        padding: 12px 16px;
+    }
+    
+    .table-row:last-child {
+        border-bottom: none;
+    }
+    
     .position-card {
-        background: rgba(44, 90, 160, 0.08);
-        border-left: 4px solid #2c5aa0;
-        border-radius: 12px;
-        padding: 20px;
-        margin: 15px 0;
-        transition: all 0.3s ease;
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        padding: 16px;
+        margin: 8px 0;
     }
     
-    .position-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(44, 90, 160, 0.15);
+    .gain { 
+        color: #10b981; 
+        font-weight: 500; 
     }
     
-    .position-short {
-        background: rgba(239, 68, 68, 0.08);
-        border-left-color: #ff4444;
+    .loss { 
+        color: #ef4444; 
+        font-weight: 500; 
     }
     
     /* Monospace for prices */
@@ -278,19 +306,21 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* Status indicators */
-    .status-indicator {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        margin-right: 8px;
-        animation: pulse 2s infinite;
+    /* Schwab-style status text */
+    .status-open { 
+        color: #10b981; 
+        font-weight: 600; 
     }
     
-    .status-live { background: #10b981; }
-    .status-warning { background: #ffa726; }
-    .status-danger { background: #ff4444; }
+    .status-closed { 
+        color: #6b7280; 
+        font-weight: 600; 
+    }
+    
+    .status-warning { 
+        color: #f59e0b; 
+        font-weight: 600; 
+    }
     
     @keyframes pulse {
         0% { opacity: 1; }
@@ -472,8 +502,8 @@ def render_header():
     with col1:
         new_account_type = st.selectbox(
             "Account Configuration",
-            ["50K_COMBINE", "150K_COMBINE"],
-            index=0 if st.session_state.account_type == "50K_COMBINE" else 1,
+            ["50K_COMBINE", "100K_COMBINE", "150K_COMBINE"],
+            index=0 if st.session_state.account_type == "50K_COMBINE" else (1 if st.session_state.account_type == "100K_COMBINE" else 2),
             key="account_selector"
         )
         if new_account_type != st.session_state.account_type:
