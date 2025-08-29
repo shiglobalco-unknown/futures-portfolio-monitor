@@ -466,33 +466,39 @@ class TopStepDashboard:
         }
 
 def render_header():
-    """Professional header with branding and account selection"""
+    """Professional Schwab-style header with branding and account selection"""
     
     dashboard = TopStepDashboard()
     config = dashboard.get_account_config()
     data = dashboard.get_real_time_data()
     
-    # Main title with GitHub attribution
-    st.markdown("""
-    <div style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-size: 3.5rem; font-weight: 900; 
-                   background: #10b981; 
-                   -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-                   margin-bottom: 10px; text-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+    # Professional header bar
+    market_status = "OPEN" if 9 <= datetime.now().hour < 16 else "CLOSED"
+    st.markdown(f"""
+    <div style="background: #ffffff; border-bottom: 1px solid #e5e5e5; padding: 16px 0; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div style="font-size: 24px; font-weight: 700; color: #2c5aa0;">
+                Futures Portfolio Monitor
+            </div>
+            <div style="font-size: 14px; color: #6b7280;">
+                TopStep Account • {datetime.now().strftime('%H:%M:%S ET, %m/%d/%Y')} • 
+                <span style="color: {'#10b981' if market_status == 'OPEN' else '#6b7280'}; font-weight: 600;">MARKET {market_status}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 1.5rem; font-weight: 600; color: #111827; margin-bottom: 8px;">
             Futures Portfolio Monitor
-        </h1>
-        <p style="font-size: 1.3rem; opacity: 0.8; margin-bottom: 5px;">
-            Professional Trading Dashboard • 
-            <a href="https://github.com/shi-ventures" style="color: #00ff88; text-decoration: none;">Shi Ventures</a>
-        </p>
-        <p style="font-size: 1rem; opacity: 0.6;">
+        </div>
+        <div style="color: #6b7280; font-size: 1rem;">
             Real-time compliance • Risk management • Performance analytics
-        </p>
-        <p style="font-size: 0.9rem; opacity: 0.5; margin-top: 10px;">
-            🌟 <a href="https://github.com/shi-ventures/futures-portfolio-monitor" 
-                  style="color: #4fc3f7; text-decoration: none;">Open Source on GitHub</a> • 
-            Demo Version with Simulated Data
-        </p>
+        </div>
+        <div style="color: #6b7280; font-size: 0.9rem; margin-top: 8px;">
+            Demo Version with Simulated Data • 
+            <a href="https://github.com/shiglobalco-unknown/futures-portfolio-monitor" 
+               style="color: #2c5aa0; text-decoration: none;">Open Source on GitHub</a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
