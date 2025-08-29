@@ -479,7 +479,7 @@ def render_header():
         if new_account_type != st.session_state.account_type:
             st.session_state.account_type = new_account_type
             dashboard.add_alert(f"Switched to {new_account_type} configuration", "info")
-            st.experimental_rerun()
+            st.rerun()
     
     with col2:
         st.markdown(f"""
@@ -651,7 +651,7 @@ def render_strategy_section():
             else:
                 st.session_state.current_strategy = "AI_AUTONOMOUS"
                 dashboard.add_alert("🤖 Returned to AI autonomous trading", "success")
-            st.experimental_rerun()
+            st.rerun()
         
         # Quick return to AI button
         if st.session_state.strategy_override:
@@ -659,7 +659,7 @@ def render_strategy_section():
                 st.session_state.strategy_override = False
                 st.session_state.current_strategy = "AI_AUTONOMOUS"
                 dashboard.add_alert("🤖 Returned to AI autonomous trading", "success")
-                st.experimental_rerun()
+                st.rerun()
     
     st.markdown("---")
     
@@ -707,7 +707,7 @@ def render_strategy_section():
                     else:
                         st.session_state.strategy_override = False
                         dashboard.add_alert(f"🎯 Switched to {strategy['name']}", "info")
-                    st.experimental_rerun()
+                    st.rerun()
     
     # Manual signals interface (only show if manual override is active)
     if st.session_state.strategy_override:
@@ -780,7 +780,7 @@ def render_strategy_section():
                 }
                 st.session_state.manual_signals.append(new_signal)
                 dashboard.add_alert(f"📡 Manual {signal_direction} signal added for {signal_instrument}", "info")
-                st.experimental_rerun()
+                st.rerun()
         
         # Display recent manual signals
         if st.session_state.manual_signals:
@@ -865,7 +865,7 @@ def render_trading_interface():
                 dashboard.add_alert(f"✅ {side} {quantity} {symbol} @ ${price:.2f}", "success")
                 st.success(f"✅ Demo trade executed: {side} {quantity} {symbol} @ ${price:.2f}")
                 time.sleep(1)
-                st.experimental_rerun()
+                st.rerun()
 
 def render_disclaimer():
     """Important disclaimer about demo nature"""
@@ -948,14 +948,14 @@ def main():
                     st.session_state.daily_pnl += pos["unrealized_pnl"]
                     st.session_state.total_pnl += pos["unrealized_pnl"]
                     st.session_state.positions.pop(i)
-                    st.experimental_rerun()
+                    st.rerun()
     
     # Disclaimer
     render_disclaimer()
     
     # Auto-refresh
     time.sleep(3)
-    st.experimental_rerun()
+    st.rerun()
 
 if __name__ == "__main__":
     main()
