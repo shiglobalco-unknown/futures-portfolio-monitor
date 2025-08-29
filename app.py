@@ -201,8 +201,8 @@ st.markdown("""
     
     .stApp {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
-        color: #e2e8f0;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        color: #111827;
     }
     
     /* Remove Streamlit branding */
@@ -217,9 +217,9 @@ st.markdown("""
     
     /* Enhanced metric cards */
     .metric-card {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(44, 90, 160, 0.08);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(44, 90, 160, 0.15);
         border-radius: 12px;
         padding: 25px;
         margin: 15px 0;
@@ -228,14 +228,14 @@ st.markdown("""
     
     .metric-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
-        border-color: rgba(0, 255, 136, 0.3);
+        box-shadow: 0 10px 30px rgba(44, 90, 160, 0.2);
+        border-color: rgba(44, 90, 160, 0.3);
     }
     
     /* Professional buttons */
     .trading-button {
-        background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-        color: #0f1419;
+        background: linear-gradient(135deg, #2c5aa0 0%, #1e40af 100%);
+        color: #ffffff;
         border: none;
         border-radius: 8px;
         padding: 12px 24px;
@@ -249,13 +249,13 @@ st.markdown("""
     
     .trading-button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4);
+        box-shadow: 0 8px 20px rgba(44, 90, 160, 0.4);
     }
     
     /* Position cards */
     .position-card {
-        background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
-        border-left: 4px solid #00ff88;
+        background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(44, 90, 160, 0.05) 100%);
+        border-left: 4px solid #2c5aa0;
         border-radius: 12px;
         padding: 20px;
         margin: 15px 0;
@@ -264,7 +264,7 @@ st.markdown("""
     
     .position-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 255, 136, 0.15);
+        box-shadow: 0 8px 25px rgba(44, 90, 160, 0.15);
     }
     
     .position-short {
@@ -288,7 +288,7 @@ st.markdown("""
         animation: pulse 2s infinite;
     }
     
-    .status-live { background: #00ff88; }
+    .status-live { background: #10b981; }
     .status-warning { background: #ffa726; }
     .status-danger { background: #ff4444; }
     
@@ -319,8 +319,8 @@ st.markdown("""
     }
     
     .risk-low {
-        background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-        color: #0f1419;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #ffffff;
         padding: 8px 16px;
         border-radius: 20px;
         font-weight: 600;
@@ -333,20 +333,20 @@ st.markdown("""
         top: 20px;
         right: 20px;
         z-index: 1000;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(44, 90, 160, 0.1);
         backdrop-filter: blur(10px);
         border-radius: 8px;
         padding: 8px 12px;
         font-size: 14px;
-        color: #e2e8f0;
+        color: #111827;
         text-decoration: none;
         transition: all 0.3s ease;
     }
     
     .github-link:hover {
-        background: rgba(0, 255, 136, 0.2);
+        background: rgba(44, 90, 160, 0.2);
         transform: translateY(-2px);
-        color: #00ff88;
+        color: #2c5aa0;
         text-decoration: none;
     }
 </style>
